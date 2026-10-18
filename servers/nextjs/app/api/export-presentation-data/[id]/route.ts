@@ -1,18 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-
-function getFastApiBaseUrl(): string {
-  const internal = process.env.FAST_API_INTERNAL_URL?.trim();
-  if (internal) {
-    return internal.replace(/\/+$/, "");
-  }
-
-  const configured = process.env.NEXT_PUBLIC_FAST_API?.trim();
-  if (configured) {
-    return configured.replace(/\/+$/, "");
-  }
-
-  return "http://127.0.0.1:8000";
-}
+import { getFastApiEndpoint } from "@/lib/fastapi-internal";
 
 export async function GET(
   request: NextRequest,
@@ -31,7 +18,7 @@ export async function GET(
     return NextResponse.json({ detail: "Unauthorized" }, { status: 401 });
   }
 
-  const presentationUrl = `${getFastApiBaseUrl()}/api/v1/ppt/presentation/${id}`;
+  const presentationUrl = getFastApiEndpoint(`api/v1/ppt/presentation/${id}`);
 
   try {
     const response = await fetch(presentationUrl, {

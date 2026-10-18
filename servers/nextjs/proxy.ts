@@ -3,7 +3,9 @@ import { clerkMiddleware, createRouteMatcher } from "@clerk/nextjs/server";
 import { desktopRequestDenied } from "@/lib/desktop-auth";
 
 function getFastApiBaseUrl(): string {
-  const internal = process.env.FAST_API_INTERNAL_URL?.trim();
+  const internal =
+    process.env.FAST_API_INTERNAL_URL?.trim() ||
+    process.env.FASTAPI_URL?.trim();
   if (internal) {
     return internal.replace(/\/+$/, "");
   }

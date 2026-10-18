@@ -1,15 +1,23 @@
 import fs from "fs";
 
 export function getFastApiBaseUrl(): string {
-  const internal = process.env.FAST_API_INTERNAL_URL?.trim();
-  if (internal) {
-    return internal.replace(/\/+$/, "");
+  const bound =
+    process.env.FAST_API_INTERNAL_URL?.trim() ||
+    process.env.FASTAPI_URL?.trim();
+  if (bound) {
+    return bound.replace(/\/+$/, "");
   }
   const configured = process.env.NEXT_PUBLIC_FAST_API?.trim();
   if (configured) {
     return configured.replace(/\/+$/, "");
   }
   return "http://127.0.0.1:8000";
+}
+
+export function getFastApiEndpoint(path: string): URL {
+  const normalizedPath = path.startsWith("/") ? path.slice(1) : path;
+  const baseUrl = getFastApiBaseUrl();
+  return new URL(normalizedPath, baseUrl.endsWith("/") ? baseUrl : `${baseUrl}/`);
 }
 
 /**

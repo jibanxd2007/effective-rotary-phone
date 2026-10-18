@@ -1,0 +1,54 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "services": {
+    "nextjs": {
+      "root": "servers/nextjs",
+      "framework": "nextjs",
+      "bindings": [
+        {
+          "type": "service",
+          "service": "fastapi",
+          "format": "url",
+          "env": "FAST_API_INTERNAL_URL"
+        }
+      ]
+    },
+    "fastapi": {
+      "root": "servers/fastapi",
+      "framework": "fastapi",
+      "entrypoint": "main.py"
+    }
+  },
+  "rewrites": [
+    {
+      "source": "/api/v1/(.*)",
+      "destination": {
+        "service": "fastapi"
+      }
+    },
+    {
+      "source": "/api/v2/(.*)",
+      "destination": {
+        "service": "fastapi"
+      }
+    },
+    {
+      "source": "/app_data/(.*)",
+      "destination": {
+        "service": "fastapi"
+      }
+    },
+    {
+      "source": "/static/(.*)",
+      "destination": {
+        "service": "fastapi"
+      }
+    },
+    {
+      "source": "/(.*)",
+      "destination": {
+        "service": "nextjs"
+      }
+    }
+  ]
+}

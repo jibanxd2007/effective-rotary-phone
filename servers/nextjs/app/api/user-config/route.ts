@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { getFastApiBaseUrl } from "@/lib/fastapi-internal";
+import { getFastApiEndpoint } from "@/lib/fastapi-internal";
 import {
   authStatusForRequest,
   requireAdminApi,
@@ -13,8 +13,9 @@ async function forwardProviderSettings(
   body?: string
 ) {
   const cookie = request.headers.get("cookie") || "";
+  const targetUrl = getFastApiEndpoint("api/v1/admin/provider-settings");
   const response = await fetch(
-    `${getFastApiBaseUrl()}/api/v1/admin/provider-settings`,
+    targetUrl,
     {
       method,
       headers: {
