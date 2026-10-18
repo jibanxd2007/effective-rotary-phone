@@ -17,3 +17,4 @@ servers/fastapi/.venv/
 servers/fastapi/.pytest_cache/
 servers/fastapi/__pycache__/
 servers/fastapi/tests/
+servers/fastapi/fastembed_cache/
