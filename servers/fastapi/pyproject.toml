@@ -8,7 +8,7 @@ version = "0.1.0"
 description = "Add your description here"
 license = "Apache-2.0"
 license-files = ["LICENSE", "NOTICE"]
-requires-python = ">=3.11,<3.12"
+requires-python = ">=3.11,<3.13"
 dependencies = [
     "alembic>=1.14.0",
     "aiohttp>=3.12.15",
